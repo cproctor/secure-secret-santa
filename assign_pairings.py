@@ -89,6 +89,11 @@ COUPLES = {
 
 MAX_ITERATIONS = 1e10
 
+# Py 2/3 support
+try:
+    input = raw_input
+except NameError:
+    pass
 
 def _is_valid_pairing(pairing):
     for giver, receiver in pairing.items():
@@ -96,8 +101,8 @@ def _is_valid_pairing(pairing):
             return False
         if COUPLES[giver] == COUPLES[receiver]:
             return False
-    return True
-
+    print(pairing)
+    return input("Approve pairing? ('yes' to keep)") == "yes"
 
 def _generate_key():
     private_key = rsa.generate_private_key(public_exponent=65537,
